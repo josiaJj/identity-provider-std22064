@@ -1,17 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+export default function Home() {
+  const [user] = useAuthState(auth);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>Application Firebase avec Next.js</h1>
+      <div>
+        <Link href="/public">Lien Public</Link>
+        {user && <Link href="/private">Lien Privé</Link>}
+      </div>
+      <div style={{ marginTop: 20 }}>
+        {user ? (
+          <>
+            <p>Bienvenue, {user.displayName}</p>
+            <button onClick={Logout}>Se déconnecter</button>
+          </>
+        ) : (
+          <button onClick={Login}>Se connecter avec Google</button>
+        )}
+      </div>
+    </div>
+  );
+}
